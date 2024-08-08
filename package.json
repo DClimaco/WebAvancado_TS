@@ -1,7 +1,7 @@
 {
   "name": "aula0608",
   "version": "1.0.0",
-  "description": "",
+  "description": "- npm init -y\r - npm i typescript\r - npx tsc --init",
   "main": "index.js",
   "scripts": {
     "build": "npx tsc",
