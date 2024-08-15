@@ -4,7 +4,6 @@
 - npm i typescript
 - npx tsc --init
 - npm i ts-node
-- npx tsc
 
 ## Código do tsconfig.json
 
