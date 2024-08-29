@@ -1,7 +1,5 @@
 import { Request, Response } from "express";
-
 import { PrismaClient } from "@prisma/client";
-
 const prisma = new PrismaClient();
 
 class UserController {
@@ -24,7 +22,8 @@ class UserController {
 
     async createUser(req: Request, res: Response){
         try {
-            const userdata = req.body;
+            const userdata = req.body.user;
+            console.log(userdata)
         
             if (!userdata.email) {
               return res.status(400).json({
