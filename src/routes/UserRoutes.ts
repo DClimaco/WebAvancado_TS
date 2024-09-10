@@ -1,20 +1,17 @@
 import { Router } from "express";
-
 import UserController from "../controllers/UserController";
-
 const UserRouter = Router();
-
 
 //Listar usuários
 UserRouter.get("/users", UserController.listUser);
 
 //Inserir usuários
-UserRouter.post("/user", UserController.createUser);
+UserRouter.post("/users/create", UserController.createUser);
 
 //Atualizar usuários
-UserRouter.put("/user/:id", UserController.updateUser);
+UserRouter.put("/users/edit/:id", UserController.updateUser);
 
 //Deletar usuários
-UserRouter.delete("/user/:id", UserController.deleteUser);
+UserRouter.delete("/users/delete/:id", UserController.deleteUser);
 
 export default UserRouter;

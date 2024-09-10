@@ -120,3 +120,9 @@ datasource db {
 ## Status Codes do HTTP
 
 - https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status#respostas_de_erro_do_servidor
+
+
+##.ENV
+
+DATABASE_URL=file:./dev.db
+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

@@ -100,7 +100,7 @@ class PostController{
         try {
             const id = req.params.id;
         
-            await prisma.user.delete({
+            await prisma.post.delete({
               where: {
                 id: parseInt(id),
               },
@@ -113,7 +113,7 @@ class PostController{
           } catch (error) {
             console.log(error);
             res.status(400).json({
-              message: "Fala ao deletar o registro",
+              message: "Falha ao deletar o registro",
             });
           }
     }

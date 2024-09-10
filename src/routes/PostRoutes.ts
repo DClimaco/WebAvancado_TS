@@ -3,15 +3,15 @@ import PostController from "../controllers/PostController";
 const PostRouter = Router();
 
 //Listar Posts
-PostRouter.get("/Posts", PostController.listPost);
+PostRouter.get("/posts", PostController.listPost);
 
 //Inserir usuários
-PostRouter.post("/Posts", PostController.createPost);
+PostRouter.post("/posts/create", PostController.createPost);
 
 //Atualizar usuários
-PostRouter.put("Posts/:id", PostController.updatePost);
+PostRouter.put("/posts/edit/:id", PostController.updatePost);
 
 //Deletar usuários
-PostRouter.delete("/Posts/:id", PostController.deletePost);
+PostRouter.delete("/posts/delete/:id", PostController.deletePost);
 
 export default PostRouter;
