@@ -1,16 +1,17 @@
 import express from "express";
-import UserRouter from "./routes/UserRoutes";
-import PostRouter from "./routes/PostRoutes";
+import AuthRouter from "./routes/AuthRoutes";
 import CommentRouter from "./routes/CommentRoutes";
+import PostRouter from "./routes/PostRoutes";
+import UserRouter from "./routes/UserRoutes";
+
 
 const app = express();
-
 app.use(express.json());
 
-// Use the routers for users and comments
 app.use(UserRouter);
 app.use(PostRouter);
 app.use(CommentRouter);
+app.use(AuthRouter);
 
 app.listen(3000, function () {
   console.log("Servidor rodando na porta 3000");
