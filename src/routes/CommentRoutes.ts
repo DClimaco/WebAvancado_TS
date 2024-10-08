@@ -1,17 +1,11 @@
-import { Router } from "express";
+import { Router } from "express";  
 import CommentController from "../controllers/CommentController";
-const CommentRouter = Router();
 
-// Listar comentários
-CommentRouter.get("/comment", CommentController.listComment);
+const CommentRouter = Router()
 
-// Inserir comentário
-CommentRouter.post("/comment/create", CommentController.createComment);
+CommentRouter.get("/comments", CommentController.listComments)
+CommentRouter.post("/comments/create", CommentController.postComment)
+CommentRouter.put("/comments/edit/:id", CommentController.editComment)
+CommentRouter.delete("/comments/delete/:id", CommentController.deleteComment)
 
-// Atualizar comentário
-CommentRouter.put("/comment/edit/:id", CommentController.updateComment);
-
-// Deletar comentário
-CommentRouter.delete("/comment/delete/:id", CommentController.deleteComment);
-
-export default CommentRouter;
+export default CommentRouter

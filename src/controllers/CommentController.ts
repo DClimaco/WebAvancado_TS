@@ -1,25 +1,27 @@
 import { Request, Response } from "express";
+
 import { PrismaClient } from "@prisma/client";
-import VerifyComment from "../utils/validComment";
+import VerifyComment from "../utils/VerifyComment";
+
 const prisma = new PrismaClient();
 
-class CommentController {
-    constructor() {}
+class CommentController{
+    constructor(){
 
-    async listComment(req: Request, res: Response) {
-        try {
-            const comments = await prisma.comment.findMany();
-            res.json(comments);
-        } catch (error) {
+    }
+    async listComments(req: Request, res: Response){
+        try{
+            const comments = await prisma.comment.findMany()
+            res.json(comments)
+        }catch(error){
             console.log(error);
             return res.status(500).json({
-                error: error,
-            });
+                error: error
+            })
         }
     }
-
-    async createComment(req: Request, res: Response) {
-        try {
+    async postComment(req: Request, res: Response){
+        try{
             const commentData = req.body
 
             if(!commentData.content){
@@ -28,16 +30,15 @@ class CommentController {
                     message: "O comentario deve possuir um conteudo",
                 })
             }
-            
-            const response= await VerifyComment(commentData.content)
+
+            const response = await VerifyComment(commentData.content)
             console.log(response)
             if(response === "true"){
                 return res.status(400).json({
-                    status:400,
-                    message:"Comentario ofensivo"
+                    status: 400,
+                    message: "Comentario ofensivo",
                 })
             }
-
             const newComment = await prisma.comment.create({
                 data: commentData,
                 });
@@ -48,63 +49,54 @@ class CommentController {
                 }); 
             return res.status(200)
             
-        } catch (error) {
+        }catch(error){
             console.log(error);
-            res.json({
-                status: 500,
-                message: error,
-            });
+            return res.status(500).json({
+                error: error
+            })
         }
     }
-
-    async updateComment(req: Request, res: Response) {
-        try {
-            const id = req.params.id;
-            const body = req.body;
-
-            const updatedComment = await prisma.comment.update({
-                where: {
-                    id: parseInt(id),
-                },
-                data: body,
-            });
-
-            if (updatedComment) {
-                return res.json({
-                    status: 200,
-                    updatedComment: updatedComment,
-                });
-            }
-        } catch (error) {
-            console.log(error);
-            res.json({
-                status: 500,
-                message: error,
-            });
-        }
-    }
-
-    async deleteComment(req: Request, res: Response) {
-        try {
-            const id = req.params.id;
-
+    async deleteComment(req: Request, res: Response){ 
+        try{
+            const commentId = req.params.id
             await prisma.comment.delete({
                 where: {
-                    id: parseInt(id),
-                },
-            });
-
-            res.status(200).json({
-                status: 200,
-                message: "Comentário deletado com sucesso",
-            });
-        } catch (error) {
+                    id: parseInt(commentId)
+                }
+            })
+            return res.status(204)
+        }catch(error){
             console.log(error);
-            res.status(400).json({
-                message: "Falha ao deletar o comentário",
-            });
+            return res.status(500).json({
+                error: error
+            })
+        }
+    }
+    async editComment(req: Request, res: Response){ 
+        try{
+            const commentData = req.body
+            const commentId = req.params.id
+            
+            if(!commentData.content){
+                return res.status(400).json({
+                    status: 400,
+                    message: "O comentario deve possuir um conteudo",
+                })
+            }
+
+            await prisma.comment.update({
+                where: {
+                    id: parseInt(commentId)
+                },
+                data: commentData
+            })
+        }catch(error){
+            console.log(error);
+            return res.status(500).json({
+                error: error
+            })
         }
     }
 }
 
-export default new CommentController();
+export default new CommentController()
